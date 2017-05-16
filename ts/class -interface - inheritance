@@ -1,0 +1,13 @@
+namespace Jungle{
+    interface Person {
+        firstName: string;
+        lastName: string;
+    }
+
+    class Hello
+    {
+        getIt(){
+            return 12;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+--> create a variable
+
+let [variable name]: [type] = [value];
+
+  example : 
+  let fullName: string = "Tarun Kumar Tomar";
+
+  
+  > boolean 
+  > number
+  > string
+  > Any
+  >undefined
+    let u: undefined = undefined;
+  >null
+    let n: null = null;
+  > Array []
+
+  > Tuple // like dictionary
+    let x: [string, number] = ["asdf",10];
+    access it via x[0] = "asdf" and x[1] = 10
+
+> enum 
+enum Color {Red, Green, Blue}
+let c: Color = Color.Green;
+
+> never 
+    can be a return type for those methods which never returns anything
+
+> type casting
+    (<string>someValue)
+     (someValue as string)
+        
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+
+1. initialize a repository at github with readme.md
+    initialize repo local
+2. copy url
+3. git remote add [nameofrepo] [url]
+4. git pull --rebase [nameofrepo] [branch]
+5. git push [nameofrepo] [branch]
+

@@ -1,0 +1,7 @@
+function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.lastName;
+}
+
+function warnUser(): void {
+    alert("This is my warning message");
+}
