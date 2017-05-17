@@ -1,30 +1,23 @@
     How it works?
 
-nugetrepo has three sub folder
+nuget-repo has three sub folder
+
  .\source | It contains all packages in extracted form, this is the folder which you need to specity in nuget install -source 
  .\reserves   | It contains only *.nupkg, this is required to initialize a new nuget repository. ex. nuget init
  .\libs     | It contains final output of nuget install -outputDir .\libs . This is the directory to which a project can directly refer to 
  
  .\NuGet.exe - the latest version of nuget.exe
  .\NuGet.config - the configuration of Nuget.exe
- .\NuGet.PackageManagement.PowerShellCmdlets.dll - the powershell extension of nuget , you can also find it at C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 14.0\COMMON7\IDE\EXTENSIONS\OCGQXFBC.FAD\NuGet.PackageManagement.PowerShellCmdlets.dll, if you have  visual studio installed
  
  ******************
- Powershell extension
-
- Download NuGet.PackageManagement.PowerShellCmdlets from https://www.nuget.org/packages/NuGet.PackageManagement.PowerShellCmdlets/
- Download its all three dependencies
-    Microsoft.Net.Http 
-    NuGet.PackageManagement
-    NuGet.Protocol.Types 
-put all four in .reserve
-add all four in source
-    .\nuget.exe add .\.reserves\nuget.packagemanagement.powershellcmdlets.1.0.0-pre-20150120222735.nupkg -s .\.source
-install all four in .\libs
-    
+ Powershell extension (Must if you are going to have other than .net core projects)
+  > open powershell (Run as Admin)
+  > Install-PackageProvider Nuget –force –verbose
+  > Install-Module –Name PowerShellGet –Force –Verbose
+  > exit and restart PowerShell
  ******************
 
- load this commandlet
+ load this commandlet (not required in all cases)
  Import-Module .\NuGet.PackageManagement.PowerShellCmdlets.dll
 
  Some Example Commands:
@@ -35,7 +28,7 @@ install all four in .\libs
  <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
-    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
     <add key="local" value="D:\Notifier\dotnet\NuGet-Repo" protocolVersion="3" />
   </packageSources>
   <disabledPackageSources>
