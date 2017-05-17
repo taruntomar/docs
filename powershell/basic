@@ -1,0 +1,7 @@
+//list all modules >
+
+Get-Module -ListAvailable -Name PackageManagement
+
+//get detail of all commands with their localted dll
+
+Get-Command | Format-List * > d:\o.txt
