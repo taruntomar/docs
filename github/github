@@ -1,6 +1,10 @@
 
 1. initialize a repository at github with readme.md
     initialize repo local
+git init
+git add .
+git commit -m "firstcommit"
+
 2. copy url
 3. git remote add [nameofrepo] [url]
 4. git pull --rebase [nameofrepo] [branch]
