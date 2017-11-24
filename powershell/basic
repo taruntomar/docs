@@ -5,3 +5,13 @@ Get-Module -ListAvailable -Name PackageManagement
 //get detail of all commands with their localted dll
 
 Get-Command | Format-List * > d:\o.txt
+
+// Like Nuget for .net, there is a gallery of powershell packages.
+//Downloading items from the PowerShell Gallery to your system requires the PowerShellGet module. You can find the PowerShellGet module in any of the following. You do not need to sign in to download items from the PowerShell Gallery.
+//Windows 10
+// the cmdlet Install-Module is not available bydefault in windwos 7 sp you have to install any of the below setup package
+//Windows Management Framework 5.0 (http://go.microsoft.com/fwlink/?LinkId=398175)
+//MSI Installer (for PowerShell 3 and 4) (http://go.microsoft.com/fwlink/?LinkID=746217&clcid=0x409)
+// to install packages online following is the command
+
+Install-Module module_name

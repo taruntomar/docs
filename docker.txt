@@ -1,0 +1,22 @@
+#copy a file from local system to docker container
+$ docker container cp <file_path_in_local_system> <container_name>:<path_in_container>
+ex: $ docker container cp page.html elegant_noether:/usr/local/apache2/htdocs/
+
+#copy a file by using docker file
+COPY page.html /usr/local/apache2/htdocs/
+
+#build a docker image from a docker file
+$ docker image build -t <container-name>:1.1
+
+#run a container 
+$docker conatiner run <image_name> 
+
+#attch a port from host to container
+$docker container run <image> -p 80:80
+
+#map to local folder from host machine to container
+docker run -v <localpath>:<container_path>
+
+#attach a shell with container
+docker container exec -it <container_name> /bin/bash
+
