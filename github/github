@@ -2,11 +2,66 @@
 1. initialize a repository at github with readme.md
     initialize repo local
 git init
-git add .
+git add .  
+git add '*.txt'
 git commit -m "firstcommit"
 
 2. copy url
 3. git remote add [nameofrepo] [url]
+
+
 4. git pull --rebase [nameofrepo] [branch]
 5. git push [nameofrepo] [branch]
+
+---------------------------------
+# to see the list of all commits on a repo
+```
+git log
+```
+# to map a local respository with remote repository on server
+```
+git remote add origin https://github.com/try-git/try_git.git
+// git goes not care what name you give to remote repository, but it is good name origin
+```
+# push local branch to remote 
+```
+git push -u origin master
+// origin is the name of the remote repository and master is local branch which we want to push, -u tells that remember name of remote repo and local branch, so that next time i can only run: git push
+```
+# to pull all changes from remote to local branch
+```
+git pull origin master
+```
+# to revert back a file stage aread, use reset command
+```
+git reset <filename>
+git reset . // to unstage all files
+```
+# undo all pending changes for a file, how the file was at last commit
+```
+git checkout -- <filename>
+```
+# create a new branch 
+```
+git branch <branch-name>
+```
+# to see all available branches in repo
+```
+git branch
+```
+# switch to another branch from current
+```
+git checkout <banch-name>
+```
+# remove a file
+```
+git rm <file-name> // this command will remove the file from disk + also stage changes to remove these file from repository
+```
+# to merge anther branch into current branch
+```
+git merge clean_up
+```
+# to delete a branch
+```
+git branch -d <branch-name>
 

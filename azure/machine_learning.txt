@@ -1,0 +1,37 @@
+#what is machine learning?
+> formal definition:
+A computer program is said to learn from experience E with respect to some class of task T and performace measure P, if its performance at Task T, as measures by P, improves with experience E.
+
+> used for: predict 
+in BI,Dataware House: use historical data to predict the future.
+trend Analysis.
+> also used for categories data, group data
+
+> The goal of machine learning is to program computers to use example data or past experience to solve a given problem.
+
+
+learning steps:
+1. data
+2. algorithems, rules
+3. learning
+
+for example:
+data: A,B,C,D,..........Y,Z
+rules: english grammer
+learning: key : how it pronounce, and what it is
+
+$ Superwised Data
+$ unsuperwised data
+
+>Superwised Data: We firstly have lots of data, with answers.
+we put some data on the left hand side
+and some data on right hand side 
+we take some data, develop some rules and algorithem, then we take next data from left side and modify our rule. like this way we make our algorithm much mature then we apply that rule and algorithm on righ side data which is already having the answers and test whether our learning is correct or not.
+
+for example: we are having a list of cars, we take one car and make an algo, that a car must have four door, four wheels, two headlight, one roof and one windshield. then we see another car and update our rule, that it might not have a roof or 4 doors, a car can have or can not have a roof. like this. 
+then after finally gets our algorithm much mature and use it on right side cars to test.
+
+> so finally we have some data and using learning we develop algorithm and rules.
+
+> Unsuperwised Learning:
+    * mostly used when we dont have answers in data, and want to find out that unknown data i.e. mostly grouping.

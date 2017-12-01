@@ -1,0 +1,5 @@
+azure function is a paas service where you can execute your code without managing any server.
+
+It is also called serverless compuing.
+
+you have to pay only for the time when your function is executing.
