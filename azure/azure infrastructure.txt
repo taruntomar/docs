@@ -1,0 +1,190 @@
+azure  infrastrucure
+	> setting up datacenter
+		>azure data centers
+		>azure regions
+		> speed test
+		> services
+		> architecture
+		> group
+		> security
+
+>We can check the nearest data center by following link:
+http://azurespeedtest.azurewebsites.net/
+
+> we can check the services available by following link
+https://azure.microsoft.com/en-us/regions/services/
+
+>azure datacenter tour
+https://cloud-platform-assets.azurewebsites.net/datacenter/
+
+Affinity group: resouce are are nearby in a datacenter for a multitier architecture
+blade servers: microsoft uses blade servers in its datacenters.
+		
+> there is a switch on top of everyrack and racks are connecting through these switch 
+in a aggregation group. Some racks are having Fabric controller which is responsible for 
+provisioning new VMs, health and lifecycle of a VM.
+
+> Stamp/Cluster: It is a group of 20 racks, all having same CPU generation. If two resources are in same
+Affinity group, then both belongs to same Stamp.
+
+======================================================================
+Regional Availabiliy and High Availability
+	> Regional Availability
+	> Service Availability
+	> Regional Datacenter
+	> High Availability
+
+> REgion availability: countries might have different regions like australia has East and East South
+For some regions there are restrictions like you can only deploy services in a region if the customer is 
+having the billing address in that region. For example: To deploy in EAst Australia you should have billing
+address in australia.
+
+> Each Rack work as a fault domain
+> availability set makes virtual machine keeps running during downtime, If two virtual machines are running in an availability set then
+they are running in different racks but can be in the same clusture.
+
+>An update domain is a group of VMs and underlying physical hardware that can be rebooted at the same time. 
+>VMs in the same fault domain share common storage as well as a common power source and network switch. (means both are in the same rack).
+
+=======================================================================
+Active Directory:
+	> AD DS on Iaas (Active Directory domain services).
+	> Azure AD
+	> Azure AD synchronization
+	> Azure AD DS
+
+
+> Azure AD: It is the active directory in clould as SaaS. We can create User, groups 
+and can use them to logon on other SaaS and custom applications.
+
+> Azure AD DS: It is the domain service which we can use as domain conroller to logon to 
+an Azure Virtual Machine. We can also add a machine into AD DS.
+
+> On Premise AD to Azure AD synchronization: Azure AD Connect is the name of the application, 
+which we can use to synch user from onPremise AD to AZure AD.
+
+========================================================================
+
+internal static IP > Assign | Remove
+
+public reserve IP > for services
+Instance Level public IP for Virtual Machines.
+=================================================================
+AZURE ACLS ( Azure Access Controll List) ( Network Acccess Controll list)
+
+By using ACL we can config an azure vm endpoint on specific Port. 
+And anyone on the internet can communicate with that Virtual Machine by using this
+endpoint as per ACL rule.
+
+We can create two type of rule. Allow or Deny. All traffic is by default deny. 
+We can make it allow by creating rule.
+
+We can assign up to 50 rules per endpoint.
+
+Every rule has a number, and rule with less number has predecense over the rule having
+high number.
+
+steps:
+create ACL
+config ACL
+create an endpoint and assign this ACL.
+
+====================================================================
+Azure Network Security Group (NSG)
+> Each NSG has a name
+> NSG's are regional, means we can not use same nsg with difference region VMS.
+> NSG rule can be altered while the NSG is applied.Changes will apply to all those VMs
+where this NSG is applied.
+> NSG can not be used with the same VM, on which ACL is applied. So we can use only eiher 
+one.
+Difference in NSG and ACL
+> can be applied on both inbound and outbound rules, while ACL can be applied only on INbound rules.
+> In NSG we can specify Source IP, Source Port, Protocol, Destination IP, Destination Port but in ACL port and protocol specified on Endpoint side.
+
+NSG rule property,
+$Protocol: TCP/UDP
+$Source/Destination Port Range: 80, 80-34,*
+$Source/Destination address prefix: 192.168.0.1,192.168.0.0/12,VIRTUAL_NETWORK,AZURE_LOADBALANCER,INTERNET
+$Direction: Inbound/Outbound
+$Priority: 10,100,1000
+$Access: Allow or Deny
+$Description: "This is an awesome rule"
+
+VIRTUAL_NETWORK: I means available azure virtual network and any connected on premise network.
+AZURE_LOADBALANCER: from a connected load balancer
+INTERNET: any source  which is reachable in internet
+
+Default Inbound NSGs,
+name|priority|SourceIP|source port|DestIP|Dest Port|Protocol|Access
+ALLOWVNET INBOUND |65000|VIRTUAL_NETWORK|*|VIRTUAL_NETWORK|*|*|ALLOW
+ALLOW AZURE LOAD BALANCER INBOUND |65001|AZURE_LOADBALANCER|*|*|*|*|ALLOW
+DENY ALL INBOUND |65500|*|*|*|*|*|DENY
+
+> NSG rule with low priority will get hit first, so if it allow for a traffic then it will not match rule further and allow it.
+
+Default outbound NSGs,
+name|priority|SourceIP|source port|DestIP|Dest Port|Protocol|Access
+ALLOWVNET OUTBOUND |65000|VIRTUAL_NETWORK|*|VIRTUAL_NETWORK|*|*|ALLOW
+ALLOW INTERNET OUTBOUND |65001|*|*|INTERNET|*|*|ALLOW
+DENY ALL OUTBOUND |65500|*|*|*|*|*|DENY
+
+NSG Association:
+NSG can be associated to three entities,
+1. NSG to Subnet
+2. NSG to NIC
+3. NSG to VM
+
+when a traffic comes or out then it has to go through all three level of NSG if NSG is applied to all three level.
+
+While creating NSG, always make sure that communication is possible to 168.63.129.16 which is responsible for azure DHCP relay, DNS recursive resolver, Load balancer + VM health probe
+and outbound TCP/UDP is allowed on port 1688, which communicate with Azure KMH server and maintaine licenses.
+
+ex:
+create a new NSG
+> New-AzureNetworkSecurityGroup -Name -Location -Label
+create a rule in nsg
+> Get-AzureNetworkSecurityGroup -Name "asfs" `
+	|Set-AzureNetworkSecurityRule -Name "rulwe1" `
+	-Action Allow`
+	-Protocol TCP`
+	-Type Inbound`
+	-Priority 100`
+	-SourceAddressPrefix Internet `
+	-SourcePortRange '*' `
+	-DestinationAddressPrefix '*'`
+	-DestinationPortRange '80'
+
+	
+======================================================================================
+Designing Virual Machine:
+we can have,
+>50 AzureVMs per cloud service
+>150 input endpoints per cloud service
+>100 VMs per availability set
+
+Azure infrastructure has some limitations, here is the table
+
+Azure Resource	Soft / Default Limit	Hard / Max Limit
+--------------------------------------------------------
+CPU Cores per Subscription	20	Contact support
+Co-Administrators per Subscription	Unlimited	Unlimited
+Resource Groups per Subscription	800	800
+Storage Accounts per Subscription	200	250
+Cloud Services per Subscription	20	200
+Local Networks per Subscription	10	500
+SQL Database Servers per Subscription	6	150
+DNS Servers per Subscription	9	100
+Reserved IPs per Subscription	20	100
+Hosted service certificates per Subscription	400	400
+Affinity Groups per Subscription	256	256
+Alert Rules per Subscription	250	250
+Resource Manager API Reads	15,000 per hour	15,000 per hour
+Resource Manager API Writes	1,200 per hour	1,200 per hour
+Resource Manager API request size	4,194,304 bytes	4,194,304 bytes
+Tags per Subscription	10,000	10,000
+
+There are differt tiers:
+1.A, B, C, D based on CPU And Ram And storage type
+
+
+
