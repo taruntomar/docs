@@ -1,0 +1,10 @@
+
+install cygwin and curl or wget
+install apt-cyg: curl -L https://raw.githubusercontent.com/transcode-open/apt-cyg/master/apt-cyg -o /bin/apt-cyg
+make apt-cyg executable: chmod +x /bin/apt-cyg
+refresh apt-cyg cache: apt-cyg update
+install packages: apt-cyg install python3 python3-devel gcc-g++ gcc-core libffi-devel openssl-devel make
+create link to python3: ln -s /usr/bin/python3 /usr/bin/python
+run install: curl -L https://aka.ms/InstallAzureCli | bash
+
+
