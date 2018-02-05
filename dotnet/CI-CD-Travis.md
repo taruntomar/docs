@@ -4,19 +4,21 @@ variables:
 {assembly_name}
 {description_about_library}
 
-
 # Setup CI/CD using GitHub and TravisCI
+
 ## Prepare NuGET for continuous deployment
 
 1. Goto https://www.nuget.org/ and signin using microsoft account.
 2. goto API Keys, create a key, copy this key in a text file, save.
+
 ------------------------------------------------------------------
 
 ## Create a dll Project
 
 1. Create a dll (.Net Framework project) and host it in GitHub.
 2. create a file named {project_name}.nuspec in project and add the following content in it.
-```
+
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
@@ -38,8 +40,11 @@ variables:
     </files>
 </package>
 ```
+
 -----------------------------------------------------------------
+
 ## Setup travis for continuous integration 
+
 1. Goto https://travis-ci.org/ and register
 2. goto your profile and add newly created project repository.
 3. come back to HomePage > More Options > Settings
@@ -50,6 +55,7 @@ variables:
 
 5. Add a file in solution with name '.travis.yml' using visual studio.
     add the below content to the file.
+
 ```yml
     language: csharp
 solution: {solution_name}.sln
